@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>CodePen - CRUD JS + LS</title>
+        <link rel='stylesheet' href='https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css'/>
+    </head>
+    <body style="background-image: linear-gradient(90deg, rgb(17, 24, 39) 21%, rgb(17, 24, 39) 21%);">
+        <!-- partial:index.partial.html -->
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>CRUD JS LS</title>
+            </head>
+            <body class="bg-gradient-to-r from-indigo-50 to-indigo-100">
+                <div class="max-w-md mx-auto md:max-w-2xl">
+                    <h3 class="text-center text-3xl mt-20 text-base leading-8 text-black font-bold tracking-wide uppercase"><span><b class="text-gray-700">COMPARTE TU SERVICIO CON LA COMUNIDAD</b></span></h3>
+                    <h1 class="leading-8 mt-20 text-center text-gray-800 tracking-wide uppercase">¿Qué es esto?
+Camellando es una colección de espacios para ofrecer servicios en línea como nómada digital o trabajador online en Colombia.
+Es un proyecto paralelo que nació de las frustraciones de un trabajador independiente al tratar de encontrar espacios para ofertar sus servicios.</h1>
+                    <h3 class="text-center text-3xl mt-20 text-base leading-8 text-black font-bold tracking-wide uppercase"></h3>
+                    <div class="flex items-center bg-indigo-50 mt-16 mb-10" style="background-image: linear-gradient(90deg, rgb(17, 24, 39) 14%, rgb(17, 24, 39) 14%);">
+                        <div class="flex-grow text-left px-4 py-2 m-2">
+                            <h5 class="bg-gray-900 font-bold text-gray-800 text-xl">Lista de Servicios</h5>
+                        </div>
+                        <div class="flex-grow text-right px-4 py-2 m-2">
+                            <button id="add" class="bg-gray-900 font-semibold hover:bg-transparent inline-flex items-center px-4 py-2 rounded text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="feather feather-plus-circle">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                </svg>
+                                <span class="pl-2">Add</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="list-car"></div>
+                </div>
+                <div id="form-add" class="bg-gray-900 bottom-0 fixed hidden left-0 max-w-full min-h-screen mx-auto overflow-scroll right-0 top-0">
+                    <form id="form-car" class="w-full max-w-sm container mt-20 mx-auto" onsubmit="event.preventDefault(), addCar()">
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="brand">
+                                Nombre
+</label>
+                            <input id="brand" class="appearance-none border focus:outline-none focus:text-gr leading-tight px-3 py-2 rounded shadow w-full bg-gray-900 text-gray-700" type="text" placeholder="Tu Nombre"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="model">
+                                Servicio
+</label>
+                            <input id="model" class="appearance-none bg-gray-900 border focus:shadow-outli focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Tu Servicio"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="colour">
+                                Ciudad
+</label>
+                            <input id="colour" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Ciudad"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                                Descripción
+</label>
+                            <input id="description" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Agrega una descripción breve"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="year">
+                                Experiencia
+</label>
+                            <input id="year" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Años de experiencia"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
+                                Precio
+</label>
+                            <input id="price" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Valor del servicio"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="image">
+                                Imagen
+</label>
+                            <input id="image" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="url, http://..."/>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-transparent focus:outline-none focus:shadow-outline font-bold hover:bg-transparent mt-5 px-4 py-2 rounded w-full text-white">
+                                Add
+</button>
+                        </div>
+                        <div class="text-center mt-4 text-gray-500"><a id="close-add" href="#">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="form-edit" class="fixed overflow-scroll bg-white mx-auto top-0 right-0 bottom-0 left-0 min-h-screen max-w-full hidden">
+                    <form class="w-full max-w-sm container mt-20 mx-auto" onsubmit="event.preventDefault(), saveEdit()">
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="brand">
+                                Brand
+</label>
+                            <input id="brand" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:text-gr" type="text" placeholder="Enter brand"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="model">
+                                Model
+</label>
+                            <input id="model" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:text-gray-600 focus:shadow-outli" type="text" placeholder="Enter model"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="colour">
+                                Colour
+</label>
+                            <input id="colour" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:text-gray-600" type="text" placeholder="Enter colour"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                                Description
+</label>
+                            <input id="description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:text-gray-600" type="text" placeholder="Enter short descrption"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="year">
+                                Year
+</label>
+                            <input id="year" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:text-gray-600" type="text" placeholder="Enter year"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
+                                Price
+</label>
+                            <input id="price" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:text-gray-600" type="text" placeholder="Enter price"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="image">
+                                Image
+</label>
+                            <input id="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:text-gray-600" type="text" placeholder="Enter url, http://..."/>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="mt-5 bg-green-400 w-full hover:bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                Save Car
+</button>
+                        </div>
+                        <div class="text-center mt-4 text-gray-500">
+                            <a id="close-edit" href="#">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </body>
+        </html>
+        <!-- partial -->
+        <script src="./script.js"></script>
+    </body>
+</html>

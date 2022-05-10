@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>CodePen - CRUD JS + LS</title>
+        <link rel='stylesheet' href='https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css'/>
+
+
+<style>
+    /* ############ MIXINS  ############## */
+/* ############ END/MIXINS  ############## */
+/* ############ COLORS  ############## */
+/* ############ END/COLORS  ############## */
+/* ############ TYPOGRAPHY  ############## */
+h1 {
+  font-family: "Black Ops One", cursive;
+  font-size: 18px;
+  margin: 10px;
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: 22px;
+  }
+}
+
+h2 {
+  font-family: "Black Ops One", cursive;
+  font-size: 30px;
+  margin: 10px;
+}
+
+a {
+  color: #d9f2f4;
+  text-decoration: none;
+  transition: all 1s ease;
+}
+a.brackets {
+  padding-bottom: 2px;
+}
+a.brackets::before {
+  content: "[ ";
+}
+a.brackets::after {
+  content: " ]";
+}
+a:hover, a:active, a:focus {
+  background: #d9f2f4;
+  color: black;
+}
+
+/* ############ END/TYPOGRAPHY  ############## */
+/* ############ BUTTONS  ############## */
+.btn {
+  padding: 5px;
+  margin: 5px;
+  color: black;
+  background: #93edf5;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: none;
+  font-weight: bold;
+  border: 2px solid #93edf5;
+  -webkit-box-shadow: 0px 0px 4px 2px rgba(16, 81, 139, 0.78);
+  -moz-box-shadow: 0px 0px 4px 2px rgba(16, 81, 139, 0.78);
+  box-shadow: 0px 0px 4px 2px rgba(16, 81, 139, 0.78);
+}
+.btn:hover {
+  background: transparent;
+  color: #93edf5;
+  text-shadow: 0px 0px 5px rgba(0, 255, 255, 0.83);
+}
+
+/* ############ END/BUTTONS  ############## */
+/* ############ BASE  ############## */
+body {
+  font-size: 16px;
+  font-family: "Source Code Pro", monospace;
+  color: #93edf5;
+  text-shadow: 0px 0px 5px rgba(0, 255, 255, 0.83);
+  background: #051d29;
+  -webkit-animation: ScanLine 10s ease-in-out infinite;
+  -moz-animation: ScanLine 10s ease-in-out infinite;
+  animation: ScanLine 10s ease-in-out infinite;
+}
+@-webkit-keyframes ScanLine {
+  0% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@-moz-keyframes ScanLine {
+  0% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@keyframes ScanLine {
+  0% {
+    opacity: 0.8;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.9;
+  }
+  70% {
+    opacity: 0.6;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@media (min-width: 769px) {
+  body {
+    background: #051d29 url("https://markostefanovic.github.io/random-quote-generator/images/back.png") repeat 300% 300%;
+    -webkit-animation: ScanLine 10s ease-in-out infinite;
+    -moz-animation: ScanLine 10s ease-in-out infinite;
+    animation: ScanLine 10s ease-in-out infinite;
+  }
+  @-webkit-keyframes ScanLine {
+    0% {
+      background-position: 51% 0%;
+      opacity: 0.9;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    20% {
+      opacity: 0.7;
+    }
+    30% {
+      opacity: 0.8;
+    }
+    40% {
+      opacity: 0.9;
+    }
+    50% {
+      background-position: 50% 100%;
+      opacity: 1;
+    }
+    60% {
+      opacity: 0.9;
+    }
+    70% {
+      opacity: 0.6;
+    }
+    80% {
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    100% {
+      background-position: 51% 0%;
+      opacity: 0.9;
+    }
+  }
+  @-moz-keyframes ScanLine {
+    0% {
+      background-position: 51% 0%;
+      opacity: 0.9;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    20% {
+      opacity: 0.7;
+    }
+    30% {
+      opacity: 0.8;
+    }
+    40% {
+      opacity: 0.9;
+    }
+    50% {
+      background-position: 50% 100%;
+      opacity: 1;
+    }
+    60% {
+      opacity: 0.9;
+    }
+    70% {
+      opacity: 0.6;
+    }
+    80% {
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    100% {
+      background-position: 51% 0%;
+      opacity: 0.9;
+    }
+  }
+  @keyframes ScanLine {
+    0% {
+      background-position: 51% 0%;
+      opacity: 0.9;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    20% {
+      opacity: 0.7;
+    }
+    30% {
+      opacity: 0.8;
+    }
+    40% {
+      opacity: 0.9;
+    }
+    50% {
+      background-position: 50% 100%;
+      opacity: 1;
+    }
+    60% {
+      opacity: 0.9;
+    }
+    70% {
+      opacity: 0.6;
+    }
+    80% {
+      opacity: 0.9;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    100% {
+      background-position: 51% 0%;
+      opacity: 0.9;
+    }
+  }
+}
+
+.border.blue {
+  border: 2px solid #4ba0e3;
+  -webkit-box-shadow: 0px 0px 4px 2px rgba(16, 81, 139, 0.78), inset 0px 0px 4px 2px rgba(16, 81, 139, 0.78);
+  -moz-box-shadow: 0px 0px 4px 2px rgba(16, 81, 139, 0.78), inset 0px 0px 4px 2px rgba(16, 81, 139, 0.78);
+  box-shadow: 0px 0px 4px 2px rgba(16, 81, 139, 0.78), inset 0px 0px 4px 2px rgba(16, 81, 139, 0.78);
+}
+.border.red {
+  border: 2px solid #d4afb9;
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(240, 93, 94, 0.78);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(240, 93, 94, 0.78);
+  box-shadow: 0px 0px 2px 1px rgba(240, 93, 94, 0.78);
+}
+
+.cursor {
+  color: #93edf5;
+  background: transparent;
+  text-shadow: 0px 0px 5px rgba(0, 255, 255, 0.83);
+  -webkit-animation: Blink 2s ease infinite;
+  -moz-animation: Blink 2s ease infinite;
+  animation: Blink 2s ease infinite;
+}
+@-webkit-keyframes Blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-moz-keyframes Blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes Blink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.float-left {
+  float: left;
+}
+
+.clear {
+  clear: both;
+}
+
+/* ############ END/BASE  ############## */
+/* ############ CONTAINER  ############## */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  min-width: 300px;
+}
+.container .wrapper {
+  padding: 2px;
+  -webkit-animation: Glitch 10s ease-in-out infinite;
+  -moz-animation: Glitch 10s ease-in-out infinite;
+  animation: Glitch 10s ease-in-out infinite;
+}
+@-webkit-keyframes Glitch {
+  9.9% {
+    -webkit-transform: skew(0deg);
+  }
+  10% {
+    -webkit-transform: skew(1deg);
+  }
+  10.1% {
+    -webkit-transform: skew(0deg);
+  }
+  89.9% {
+    -webkit-transform: skew(0deg);
+  }
+  90% {
+    -webkit-transform: skew(-4deg);
+  }
+  90.1% {
+    -webkit-transform: skew(0deg);
+  }
+}
+@-moz-keyframes Glitch {
+  9.9% {
+    -webkit-transform: skew(0deg);
+  }
+  10% {
+    -webkit-transform: skew(1deg);
+  }
+  10.1% {
+    -webkit-transform: skew(0deg);
+  }
+  89.9% {
+    -webkit-transform: skew(0deg);
+  }
+  90% {
+    -webkit-transform: skew(-4deg);
+  }
+  90.1% {
+    -webkit-transform: skew(0deg);
+  }
+}
+@keyframes Glitch {
+  9.9% {
+    -webkit-transform: skew(0deg);
+  }
+  10% {
+    -webkit-transform: skew(1deg);
+  }
+  10.1% {
+    -webkit-transform: skew(0deg);
+  }
+  89.9% {
+    -webkit-transform: skew(0deg);
+  }
+  90% {
+    -webkit-transform: skew(-4deg);
+  }
+  90.1% {
+    -webkit-transform: skew(0deg);
+  }
+}
+
+/* ############ END/CONTAINER  ############## */
+/* ############ QUOTE - MACHINE  ############## */
+.quote-machine {
+  float: left;
+  margin: 5px;
+  width: 95vw;
+}
+@media (min-width: 768px) {
+  .quote-machine {
+    width: 600px;
+  }
+}
+
+header {
+  margin-bottom: 2px;
+  min-height: 50px;
+  position: relative;
+}
+header span {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+
+main {
+  margin-bottom: 2px;
+  padding: 5px;
+  position: relative;
+  min-height: 300px;
+}
+@media (max-width: 767px) and (orientation: landscape) {
+  main {
+    min-height: 170px;
+  }
+}
+main blockquote {
+  position: relative;
+  min-height: 130px;
+  margin: 10px;
+}
+main blockquote .author {
+  margin-top: 10px;
+  float: right;
+}
+main blockquote .warning {
+  padding-top: 10px;
+  text-align: center;
+}
+main blockquote .warning > span {
+  color: black;
+  background: #d4afb9;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+main .block {
+  position: absolute;
+  bottom: 15px;
+}
+
+.page-author {
+  text-align: center;
+}
+
+footer {
+  padding-top: 5px;
+}
+
+/* ############ END/QUOTE - MACHINE  ############## */
+/* ############ MEMORY MODULE  ############## */
+.mem {
+  width: 105px;
+  margin: 5px;
+  padding: 2px;
+  float: left;
+}
+.mem ul {
+  padding-left: 2px;
+  padding-top: 2px;
+}
+.mem ul li {
+  list-style: none;
+  display: inline-block;
+  margin: -4px;
+}
+.mem .module {
+  margin: 3px;
+  width: 6px;
+  height: 16px;
+  display: inline-block;
+  background: #93edf5;
+  border: 2px solid #93edf5;
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(0, 255, 255, 0.83);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(0, 255, 255, 0.83);
+  box-shadow: 0px 0px 2px 1px rgba(0, 255, 255, 0.83);
+}
+.mem header {
+  margin: 5px 5px 5px 0;
+  min-height: 20px;
+}
+.mem header h2 {
+  font-size: 30px;
+  margin: 5px;
+}
+.mem .cell {
+  float: left;
+}
+.mem .opened {
+  color: #d4afb9;
+  text-shadow: 0px 0px 5px rgba(240, 93, 94, 0.78);
+}
+.mem .opened .module {
+  transition: background 2s, border 2s;
+  background: #d4afb9;
+  border: 2px solid #d4afb9;
+  -webkit-box-shadow: 0px 0px 2px 1px rgba(240, 93, 94, 0.78);
+  -moz-box-shadow: 0px 0px 2px 1px rgba(240, 93, 94, 0.78);
+  box-shadow: 0px 0px 2px 1px rgba(240, 93, 94, 0.78);
+}
+
+/* ############ END/MEMORY MODULE  ############## */
+</style>
+
+    </head>
+    <body style="background-image: linear-gradient(90deg, rgb(17, 24, 39) 21%, rgb(17, 24, 39) 21%);">
+        <!-- partial:index.partial.html -->
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <title>CRUD JS LS</title>
+            </head>
+            <body class="bg-gradient-to-r from-indigo-50 to-indigo-100">
+                <div class="max-w-md mx-auto md:max-w-2xl">
+                    <h3 class="text-center text-3xl mt-20 text-base leading-8 text-black font-bold tracking-wide uppercase"><span><b class="text-gray-700">COMPARTE TU SERVICIO CON LA COMUNIDAD</b></span></h3>
+                    <h1 class="leading-5 mt-20 text-center text-gray-600 tracking-wide uppercase">¿Qué es esto?
+</h1>
+                    <h1 class="leading-5 mt-20 text-center text-gray-600 tracking-wide uppercase">Camellando es una colección de espacios para ofrecer servicios en línea como nómada digital o trabajador online en Colombia.
+Es un proyecto paralelo que nació de las frustraciones de un trabajador independiente al tratar de encontrar espacios para ofertar sus servicios.</h1>
+                    <h3 class="text-center text-3xl mt-20 text-base leading-8 text-black font-bold tracking-wide uppercase"></h3>
+                    <div class="flex items-center bg-indigo-50 mt-16 mb-10" style="background-image: linear-gradient(90deg, rgb(17, 24, 39) 14%, rgb(17, 24, 39) 14%);">
+                        <div class="flex-grow text-left px-4 py-2 m-2">
+                            <h5 class="bg-gray-900 font-bold text-gray-800 text-xl">Lista de Servicios</h5>
+                        </div>
+                        <div class="flex-grow text-right px-4 py-2 m-2">
+                            <button id="add" class="bg-gray-900 font-semibold hover:bg-transparent inline-flex items-center px-4 py-2 rounded text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" class="feather feather-plus-circle">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                                </svg><span class="pl-2">Add</span>
+
+
+
+                                
+                            </button>
+                        </div>
+                    </div>
+                    <div id="list-car"></div>
+                </div>
+                <div id="form-add" class="bg-gray-900 bottom-0 fixed hidden left-0 max-w-full min-h-screen mx-auto overflow-scroll right-0 top-0">
+                    <form id="form-car" class="w-full max-w-sm container mt-20 mx-auto" onsubmit="event.preventDefault(), addCar()">
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="brand">
+                                Nombre
+</label>
+                            <input id="brand" class="appearance-none border focus:outline-none focus:text-gr leading-tight px-3 py-2 rounded shadow w-full bg-gray-900 text-gray-700" type="text" placeholder="Tu Nombre"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="model">
+                                Servicio
+</label>
+                            <input id="model" class="appearance-none bg-gray-900 border focus:shadow-outli focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Tu Servicio"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="colour">
+                                Ciudad
+</label>
+                            <input id="colour" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Ciudad"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                                Descripción
+</label>
+                            <input id="description" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Agrega una descripción breve"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="year">
+                                Whatsapp
+</label>
+                            <input id="year" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Tu numero de Whatsapp"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
+                                Precio
+</label>
+                            <input id="price" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Valor del servicio"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="image">
+                                Imagen
+</label>
+                            <input id="image" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="url, http://..."/>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-transparent focus:outline-none focus:shadow-outline font-bold hover:bg-transparent mt-5 px-4 py-2 rounded w-full text-white">
+                                Add
+</button>
+                        </div>
+                        <div class="text-center mt-4 text-gray-500">
+                            <a id="close-add" href="#">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="form-edit" class="bg-gray-900 bottom-0 fixed hidden left-0 max-w-full min-h-screen mx-auto overflow-scroll right-0 top-0">
+                    <form class="w-full max-w-sm container mt-20 mx-auto" onsubmit="event.preventDefault(), saveEdit()">
+                        <div class="w-full mb-5">
+                                                       <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="brand">
+                                Nombre
+</label>
+                            <input id="brand" class="appearance-none border focus:outline-none focus:text-gr leading-tight px-3 py-2 rounded shadow w-full bg-gray-900 text-gray-700" type="text" placeholder="Tu Nombre"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="model">
+                                Servicio
+</label>
+                            <input id="model" class="appearance-none bg-gray-900 border focus:shadow-outli focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Tu Servicio"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="colour">
+                                Ciudad
+</label>
+                            <input id="colour" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Ciudad"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="description">
+                                Descripción
+</label>
+                            <input id="description" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Agrega una descripción breve"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="year">
+                                Whatsapp
+</label>
+                            <input id="year" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Tu numero de whatsapp"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="price">
+                                Precio
+</label>
+                            <input id="price" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="Valor del servicio"/>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="image">
+                                Imagen
+</label>
+                            <input id="image" class="appearance-none bg-gray-900 border focus:outline-none focus:text-gray-600 leading-tight px-3 py-2 rounded shadow text-gray-700 w-full" type="text" placeholder="url, http://..."/>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-transparent focus:outline-none focus:shadow-outline font-bold hover:bg-transparent mt-5 px-4 py-2 rounded w-full text-white">
+                                Guardar
+</button>
+                        </div>
+                        <div class="text-center mt-4 text-gray-500"><a id="close-edit" href="#">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </body>
+        </html>
+        <!-- partial -->
+        <script src="./script.js"></script>
+
+
+        <script>
+            $(function() {
+
+  var quotes = [{
+    quote: 'Java is to JavaScript what Car is to Carpet.',
+    author: 'Chris Heilmann',
+    link: '#'
+  }, {
+    quote: 'It\'s hard enough to find an error in your code when you\'re looking for it, it\'s even harder when you\'ve assumed your code is error-free.',
+    author: 'Steve McConnell',
+    link: 'https://en.wikipedia.org/wiki/Steve_McConnell'
+  }, {
+    quote: 'If debugging is the process of removing software bugs, then programming must be the process of putting them in.',
+    author: 'Edsger Dijkstra',
+    link: 'https://en.wikipedia.org/wiki/Edsger_W._Dijkstra'
+  }, {
+    quote: 'Walking on water and developing software from a specification are easy if both are frozen.',
+    author: 'Edward V Berard',
+    link: 'https://en.wikiquote.org/wiki/Edward_V._Berard'
+  }, {
+    quote: 'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    author: 'Brian Kernighan',
+    link: 'https://en.wikipedia.org/wiki/Brian_Kernighan'
+  }, {
+    quote: 'It\'s not at all important to get it right the first time. It\'s vitally important to get it right the last time.',
+    author: 'David Thomas',
+    link: 'https://en.wikipedia.org/wiki/Dave_Thomas_(programmer)'
+  }, {
+    quote: 'Should array indices start at 0 or 1? My compromise of 0.5 was rejected without, I thought, proper consideration.',
+    author: 'Stan Kelly-Bootle',
+    link: 'https://en.wikipedia.org/wiki/Stan_Kelly-Bootle'
+  }, {
+    quote: 'Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.',
+    author: 'Rick Osborne',
+    link: '#'
+  }, {
+    quote: 'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    author: 'Martin Fowler',
+    link: 'https://en.wikipedia.org/wiki/Martin_Fowler'
+  }, {
+    quote: 'Software sucks because users demand it to.',
+    author: 'Nathan Myhrvold',
+    link: 'https://en.wikipedia.org/wiki/Nathan_Myhrvold'
+  }, {
+    quote: 'Linux is only free if your time has no value. ',
+    author: 'Jamie Zawinski',
+    link: 'https://en.wikipedia.org/wiki/Jamie_Zawinski'
+  }, {
+    quote: 'The first 90p of the code accounts for the first 90% of the development time. The remaining 10% of the code accounts for the other 90% of the development time.',
+    author: 'Tom Cargill',
+    link: 'https://en.wikipedia.org/wiki/Ninety-ninety_rule'
+  }, {
+    quote: 'Programming can be fun, so can cryptography, however they should not be combined.',
+    author: 'Ben Shneiderman',
+    link: 'https://en.wikipedia.org/wiki/Ben_Shneiderman'
+  }, {
+    quote: 'Copy and paste is a design error.',
+    author: 'David Parnas',
+    link: 'https://en.wikipedia.org/wiki/David_Parnas'
+  }, {
+    quote: 'Before software can be reusable it first has to be usable.',
+    author: 'Ralph Johnson',
+    link: 'https://en.wikipedia.org/wiki/Ralph_Johnson_(computer_scientist)'
+  }, {
+    quote: 'When someone says \'I want a programming language in which I need only say what I want done\' give him a lollipop.',
+    author: 'Alan Perlis',
+    link: 'https://en.wikipedia.org/wiki/Alan_Perlis'
+  }, {
+    quote: 'Computers are good at following instructions, but not at reading your mind.',
+    author: 'Donald Knuth',
+    link: 'https://en.wikipedia.org/wiki/Donald_Knuth'
+  }, {
+    quote: 'Any code of your own that you haven\'t looked at for six or more months might as well have been written by someone else.',
+    author: 'Eagleson\'s law',
+    link: '#'
+  }];
+
+  // vars
+  var i = 0;
+  var x = 0;
+  var result = [];
+  var $element = $('#quote');
+  var $tweet = $('#tweet-wrapper');
+  var htmlOutput;
+  // IIFE - get array of random numbers
+  (function() {
+
+    var minNum = 0;
+    var maxNum = quotes.length;
+    var randomNum = 0;
+
+    while (result.length < maxNum) {
+      randomNum = Math.floor(Math.random() * (maxNum - minNum)) + minNum;
+      // if random number doesnt exists in array push it to array
+      if (result.indexOf(randomNum) > -1) continue;
+      result.push(randomNum);
+    }
+  })();
+
+
+  function output() {
+    // x iterates quotes obj
+    if (x < quotes.length) {
+      var num = result[x];
+
+      if (quotes[num].link == '#') {
+        htmlOutput = '<p>' + quotes[num].quote + '</p>' + '<footer><a href="#" class="brackets author">' + quotes[num].author + '</a><span class="cursor blink">&#9646;</span></footer>';
+      } else {
+        htmlOutput = '<p>' + quotes[num].quote + '</p>' + '<footer><a href="' + quotes[num].link + '" target="_blank" class="brackets author">' + quotes[num].author + '</a><span class="cursor blink">&#9646;</span></footer>';
+      }
+      $('#' + num).addClass('opened');
+      $tweet.html('<a href="https://twitter.com/intent/tweet?text=' + quotes[num].quote + '-' + quotes[num].author + '" class="btn" target="_blank">Tweet Quote</a>');
+    } else {
+      htmlOutput = '<div class="warning"><span>WARNING</span><p> No more new quotes <span class="cursor blink">&#9646;</span></p></div>';
+    }
+    //$element.html(htmlOutput);
+    x++;
+    return render();
+  };
+
+  output();
+
+
+  var isTag, char, text;
+
+  function render() {
+    //console.log('i',i);
+
+    text = htmlOutput.slice(0, i++);
+
+    if (text === htmlOutput) return i = 0;
+
+    $element.html(text + '&#9646;');
+
+    char = text.slice(-1);
+
+    if (char === '<') isTag = true;
+    if (char === '>') isTag = false;
+
+    if (isTag) return render();
+
+    return setTimeout(render, 20);
+  };
+
+  $('#newQuoteBtn').on('click', function() {
+
+    output();
+
+  });
+
+
+});
+
+        </script>
+    </body>
+</html>
